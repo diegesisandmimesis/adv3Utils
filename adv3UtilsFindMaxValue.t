@@ -36,12 +36,19 @@ function findMaxValue(v0, v1, cb, maxTries?) {
 	// Try counter.
 	n = 0;
 
-	// Initial guess is the max value.
-	i = v1;
 	while(1) {
 		// See if we've run out of tries.
 		if(n >= maxTries)
 			return(nil);
+
+		// Current guess is the mean of the upper and lower
+		// bound.
+		i = (v1 + v0) / 2;
+
+		// If we're about to make the same guess we just
+		// made, we're done.
+		if(i == j)
+			return(i);
 
 		// Remember the current guess.
 		j = i;
@@ -62,18 +69,11 @@ function findMaxValue(v0, v1, cb, maxTries?) {
 			// lower bound to the current guess.
 			if(i > v0)
 				v0 = i;
-			i = (v1 + v0) / 2;
-
-			// If we're about to make the same guess we just
-			// made, we're done.
-			if(i == j)
-				return(i);
 		}
 		catch(Exception e) {
 			// We got an exception, so that means the current
 			// guess is invalid.  Make it the upper bound.
 			v1 = i;
-			i = (v1 + v0) / 2;
 		}
 	}
 }
