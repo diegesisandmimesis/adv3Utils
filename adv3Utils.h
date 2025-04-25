@@ -49,4 +49,12 @@
 
 #define isSmallWord(v) (isString(v) && (_sw.smallWords.indexOf(v.toLower()) != nil))
 
+
+#ifdef __DEBUG
+#define gDebugObj(obj) (_debugObject(obj))
+#else // __DEBUG
+#define gDebugObj(obj)
+#endif // __DEBUG
+
+
 #define ADV3_UTILS_H
