@@ -8,7 +8,9 @@
 
 // Utility define for testing an object to see if it is an instance of some
 // class
+#ifndef isType
 #define isType(obj, cls) ((obj != nil) && obj.ofKind(cls))
+#endif // isType
 
 // Defines to test for common adv3 object types
 #ifndef isActor
