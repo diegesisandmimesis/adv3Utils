@@ -49,6 +49,8 @@
 
 #define isSmallWord(v) (isString(v) && (_sw.smallWords.indexOf(v.toLower()) != nil))
 
+OrdinalThing template 'vocabWords' 'name' +ordinalNumber 'ordinalVocab'? @location? "desc"?;
+
 
 #ifdef __DEBUG
 #define gDebugObj(obj) (_debugObject(obj))
