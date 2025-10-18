@@ -42,11 +42,23 @@ class Ordinal: object
 	}
 
 	initOrdinalVocab() {
-		if((ordinalNumber == nil) || (ordinalVocab == nil))
+		local l;
+
+		if(ordinalNumber == nil)
 			return;
-		if(!ordinalVocab.ofKind(Collection))
-			ordinalVocab = [ ordinalVocab ];
-		ordinalVocab.forEach({ x: addOrdinalVocab(ordinalNumber, x) });
+
+		if(ordinalVocab == nil) {
+			l = noun;
+		} else {
+			if(ordinalVocab.ofKind(Collection))
+				l = ordinalVocab;
+			else
+				l = [ ordinalVocab ];
+		}
+		if(l == nil)
+			return;
+
+		l.forEach({ x: addOrdinalVocab(ordinalNumber, x) });
 	}
 
 	_addWord(str, prop) {
