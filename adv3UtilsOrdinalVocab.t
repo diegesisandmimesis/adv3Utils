@@ -35,6 +35,7 @@ class Ordinal: object
 	ordinalNumber = nil		// n for the nth object
 	ordinalVocab = nil		// list of single-quoted nouns
 	ordinalDisambig = true		// use ordinal for disambiguation?
+	ordinalName = true		// set name if not set
 
 	initializeThing() {
 		inherited();
@@ -59,6 +60,10 @@ class Ordinal: object
 			return;
 
 		l.forEach({ x: addOrdinalVocab(ordinalNumber, x) });
+
+		if(((name == nil) || (name.length < 1)) && (ordinalName == true)
+			&& (l.length > 0))
+			name = '<<spellIntOrdinal(ordinalNumber)>> <<l[1]>>';
 	}
 
 	_addWord(str, prop) {
