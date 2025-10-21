@@ -47,6 +47,8 @@ class Ordinal: object
 		[ function(x) { return('<<spellInt(x)>>'); }, true ],
 		// "#1"
 		[ function(x) { return('#<<toString(x)>>'); }, true ],
+		// "1"
+		[ function(x) { return('<<toString(x)>>'); }, true ],
 		// "first"
 		[ function(x) { return('<<spellIntOrdinal(x)>>'); }, nil ],
 		// "number"
@@ -134,6 +136,11 @@ class Ordinal: object
 
 		// Add our token to the list.
 		weakTokens += str;
+	}
+
+	_addWeakWord(str, prop) {
+		_addWord(str, prop);
+		_addWeakToken(str);
 	}
 
 	// Add the given string as a noun and an adjective for this object
