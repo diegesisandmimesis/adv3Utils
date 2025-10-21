@@ -4,6 +4,17 @@
 
 #include "isType.h"
 
+#ifdef ROMAN_ORDINAL
+#include "intMath.h"
+#ifndef INT_MATH_H
+#error "When compiled with -D ROMAN_ORDINAL this module requires the intMath module."
+#error "https://github.com/diegesisandmimesis/intMath"
+#error "It should be in the same parent directory as this module.  So if"
+#error "adv3Utils is in /home/user/tads/adv3Utils, then"
+#error "intMath should be in /home/user/tads/intMath ."
+#endif // INT_MATH_H
+#endif // ROMAN_ORDINAL
+
 #ifndef gTurn
 #define gTurn (libGlobal.currentTurn())
 #endif // gTurn

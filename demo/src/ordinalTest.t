@@ -21,6 +21,8 @@
 
 #include "adv3Utils.h"
 
+#include "intMath.h"
+
 versionInfo: GameID;
 gameMain: GameMainDef initialPlayerChar = me;
 
@@ -31,13 +33,19 @@ class Pebble: OrdinalThing
 
 Pebble template +ordinalNumber;
 
+class Rock: RomanOrdinalThing
+	vocabWords = 'rock'
+	desc = "There's a <<toRoman(ordinalNumber)>> engraved on it. "
+;
+
+Rock template +ordinalNumber;
+
 startRoom: Room 'Void' "This is a featureless void. ";
 +me: Person;
-+pebble01: Pebble 'pebble' 'pebble number one' +1;
-+pebble02: Pebble 'pebble' 'pebble number two'
-        "There's a two painted on it. "
-	ordinalNumber = 2
-	ordinalVocab = 'pebble'
-;
++pebble01: Pebble +1;
++pebble02: Pebble +2;
 +pebble03: Pebble +3;
++Rock +1;
++Rock +2;
++Rock +3;
 

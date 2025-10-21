@@ -37,6 +37,10 @@ class Ordinal: object
 	ordinalDisambig = true		// use ordinal for disambiguation?
 	ordinalName = true		// set name if not set
 
+	// By default use theName instead of aName for ordinal objects:
+	// "the first pebble" instead of "a first pebble".
+	listName = (theName)
+
 	// The ordinal forms we add.  All of these get added as adjectives
 	// and weak tokens, and the ones with a true in there are added
 	// as nouns as well.
@@ -93,26 +97,34 @@ class Ordinal: object
 		l.forEach({ x: _addOrdinalNoun(x) });
 
 		// If we don't have an explicitly defined name and the
-		// ordinalName flag is set, then we set our name to be
-		// the ordinal version of the first noun in our list
-		// from above.
-		// This will be something like "first pebble".
+		// ordinalName flag is set, then we set one based on
+		// our ordinal number.
 		if(((name == nil) || (name.length < 1))
 			&& (ordinalName == true))
-			name = '<<spellIntOrdinal(ordinalNumber)>> <<l[1]>>';
+			initOrdinalName(l[1]);
 
-		// If the ordinalDisambig flag is set, we set the
-		// disambiguation name to be the ordinal form of the first
-		// noun, and set the disambiguation prompt order to be
-		// our number.
-		// This means disambiguation will be something like
-		// "Which pebble do you mean, the first pebble, the second
-		// pebble, or the third pebble?".
-		if(ordinalDisambig == true) {
-			disambigName =
-				'<<spellIntOrdinal(ordinalNumber)>> <<l[1]>>';
-			disambigPromptOrder = ordinalNumber;
-		}
+		// If the ordinalDisambig flag is set, we tweak the
+		// disambiguation name and order.
+
+		if(ordinalDisambig == true)
+			initOrdinalDisambig(l[1]);
+	}
+
+	// Set our name to be the ordinal form of the given noun.
+	// This will be something like "first pebble".
+	initOrdinalName(str) {
+		name = '<<spellIntOrdinal(ordinalNumber)>> <<str>>';
+	}
+
+	// Set the disambiguation name to be the ordinal form of the given
+	// noun, and use our ordinal number for the disambiguation prompt
+	// order.
+	// This means disambiguation will be something like
+	// "Which pebble do you mean, the first pebble, the second
+	// pebble, or the third pebble?".
+	initOrdinalDisambig(str) {
+		disambigName = '<<spellIntOrdinal(ordinalNumber)>> <<str>>';
+		disambigPromptOrder = ordinalNumber;
 	}
 
 	// Add string str to the command dictionary as part of speech prop.
@@ -168,3 +180,30 @@ class Ordinal: object
 ;
 
 class OrdinalThing: Ordinal, Thing;
+
+
+// RomanOrdinalThing:  extend OrdinalThing to include Roman numerals.
+// Using this, if >X PEBBLE NUMBER THREE would work, >X PEBBLE III will
+// as well.
+#ifdef ROMAN_ORDINAL
+
+class RomanOrdinalThing: OrdinalThing
+	isProperName = true
+
+	_ordinalForms = (inherited + [
+		[ function(x) { return('<<toRoman(x)>>'); }, true ]
+	] )
+
+	// Set our name to be something like "pebble IV".
+	initOrdinalName(str) {
+		name = '<<str>> <<toRoman(ordinalNumber)>>';
+	}
+
+	// Set disambig prompt to be something like "pebble IV".
+	initOrdinalDisambig(str) {
+		disambigName = '<<str>> <<toRoman(ordinalNumber)>>';
+		disambigPromptOrder = ordinalNumber;
+	}
+;
+
+#endif // ROMAN_ORDINAL
