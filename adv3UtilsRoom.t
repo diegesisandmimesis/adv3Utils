@@ -43,8 +43,8 @@ modify Room
 		return(actor);
 	}
 
-	// Check to see if the given actors's location is adjacent to
-	// the given room.
+	// Returns boolean true if the given room is adjacent to this
+	// room as far as the given actor is concerned.
 	isAdjacent(rm, actor?, cb?) {
 		if((actor = _canonicalizeActor(actor)) == nil)
 			return(nil);

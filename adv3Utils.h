@@ -30,6 +30,8 @@
 OrdinalThing template 'vocabWords' 'name' +ordinalNumber 'ordinalVocab'? @location? "desc"?;
 OrdinalThing template 'vocabWords' 'name' +ordinalNumber [ordinalVocab]? @location? "desc"?;
 
+// Alternate Room template that allows declaration of vocabulary.
+Room template 'roomName' 'destName'? 'name'? 'vocabWords'? "desc"?;
 
 #ifdef __DEBUG
 #define gDebugObj(obj) (_debugObject(obj))
