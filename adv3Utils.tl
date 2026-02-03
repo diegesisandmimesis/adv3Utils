@@ -6,5 +6,6 @@ source: adv3UtilsRoom.t
 source: adv3UtilsRoomVocab.t
 source: adv3UtilsTitleCase.t
 source: adv3UtilsOrdinalThing.t
+source: adv3UtilsThingStateMulti.t
 source: adv3UtilsIobjScope.t
 source: adv3UtilsDebug.t
