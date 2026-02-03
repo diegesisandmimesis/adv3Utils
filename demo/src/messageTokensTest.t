@@ -21,8 +21,6 @@
 
 #include "adv3Utils.h"
 
-#include "intMath.h"
-
 versionInfo: GameID;
 gameMain: GameMainDef initialPlayerChar = me;
 

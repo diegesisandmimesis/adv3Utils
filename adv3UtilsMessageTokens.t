@@ -32,12 +32,14 @@ messageTokensPreinit: PreinitObject
 		if(!isMessageToken(obj)) return(nil);
 		_messageTokens.appendUnique(obj);
 
-		if((obj.id != obj.id.toLower()) && __DEBUG) {
+#ifdef __DEBUG
+		if(obj.id != obj.id.toLower()) {
 			aioSay('\n===WARNING===\n ');
 			aioSay('\nconverting MessageToken id <<obj.id>>
 				to lower case\n ');
 			aioSay('\n===WARNING===\n ');
 		}
+#endif // __DEBUG
 
 		obj.id = obj.id.toLower();
 
