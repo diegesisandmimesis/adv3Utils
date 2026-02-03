@@ -29,8 +29,10 @@ roomVocabPreinit: PreinitObject
 
 			// Make sure the room doesn't already have vocabulary
 			// defined.
-			if(o.vocabWords.length > 1)
+			if(o.vocabWords.length > 1) {
+				o.initializeVocabWith(o.vocabWords);
 				return;
+			}
 
 			// Default to the roomName and the literal "room".
 			o.initializeVocabWith(o.roomName + '/room');

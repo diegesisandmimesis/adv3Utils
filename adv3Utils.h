@@ -26,12 +26,15 @@
 #define gSmallWords (_sw.smallWords)
 
 #define isSmallWord(v) (isString(v) && (_sw.smallWords.indexOf(v.toLower()) != nil))
+#define isMessageToken(obj) (obj != nil) && obj.ofKind(MessageToken)
 
 OrdinalThing template 'vocabWords' 'name' +ordinalNumber 'ordinalVocab'? @location? "desc"?;
 OrdinalThing template 'vocabWords' 'name' +ordinalNumber [ordinalVocab]? @location? "desc"?;
 
 // Alternate Room template that allows declaration of vocabulary.
 Room template 'roomName' 'destName'? 'name'? 'vocabWords'? "desc"?;
+
+MessageToken template 'id' ->prop @obj;
 
 #ifdef __DEBUG
 #define gDebugObj(obj) (_debugObject(obj))

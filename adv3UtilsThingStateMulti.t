@@ -84,7 +84,11 @@ modify ThingState
 
 modify Thing
 	examineStatus() {
+		local st;
+
 		inherited();
-		getState().stateDesc;
+
+		if((st = getState()) != nil)
+			st.stateDesc;
 	}
 ;

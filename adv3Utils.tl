@@ -8,4 +8,5 @@ source: adv3UtilsTitleCase.t
 source: adv3UtilsOrdinalThing.t
 source: adv3UtilsThingStateMulti.t
 source: adv3UtilsIobjScope.t
+source: adv3UtilsMessageTokens.t
 source: adv3UtilsDebug.t
