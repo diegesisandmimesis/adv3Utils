@@ -44,7 +44,7 @@ modify ThingState
 	stateDesc = ""
 	roomRemoteDesc(actor) {}
 	roomDesc = ""
-	roomFirstDesc = ""
+	roomFirstDesc { roomDesc; }
 	roomDarkDesc = ""
 
 	matchName(obj, origTokens, toks, states) {
