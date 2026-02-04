@@ -2,13 +2,6 @@
 //
 // adv3UtilsFindMaxValue.t
 //
-//	Tweak libGlobal for gTurn to work
-//
-#include <adv3.h>
-#include <en_us.h>
-
-#include "adv3Utils.h"
-
 // Function to help find the maximum value of an arbitrary callback function
 // that will not throw an exception.
 // This is intended to help determine max array sizes, max lookup table
@@ -27,6 +20,12 @@
 //			tries if a solution hasn't been found.  defaults
 //			to 65535
 //
+//
+#include <adv3.h>
+#include <en_us.h>
+
+#include "adv3Utils.h"
+
 function findMaxValue(v0, v1, cb, maxTries?) {
 	local i, j, n;
 

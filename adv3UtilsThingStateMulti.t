@@ -2,6 +2,17 @@
 //
 // adv3UtilsThingStateMulti.t
 //
+//	Extends ThingState to allow multiple states to be active at once.
+//
+//	This is to make it easier to tweak vocabulary on objects in ways
+//	that aren't strictly linear/serial.
+//
+//	Note that getState() on the parent Thing still determines which
+//	state is used for renaming (as per normal adv3 logic).  This just
+//	allows state-specific tokens from more than one state to be
+//	active at the same time, without having to repeat them in multiple
+//	states.
+//
 //
 #include <adv3.h>
 #include <en_us.h>
@@ -41,11 +52,11 @@ modify ThingState
 	isActive() { return(isMulti() ? (active == true) : true); }
 	isMulti() { return(order > -1); }
 
-	stateDesc = ""
-	roomRemoteDesc(actor) {}
-	roomDesc = ""
-	roomFirstDesc { roomDesc; }
-	roomDarkDesc = ""
+	//stateDesc = ""
+	//roomRemoteDesc(actor) {}
+	//roomDesc = ""
+	//roomFirstDesc { roomDesc; }
+	//roomDarkDesc = ""
 
 	matchName(obj, origTokens, toks, states) {
 		local i, l, len, tok;
@@ -86,6 +97,7 @@ modify ThingState
 	}
 ;
 
+/*
 modify Thing
 	examineStatus() {
 		local st;
@@ -118,3 +130,4 @@ modify Thing
 		}
 	}
 ;
+*/

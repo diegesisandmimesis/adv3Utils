@@ -2,7 +2,10 @@
 //
 // adv3UtilsTitleCase.t
 //
-//	Tweak libGlobal for gTurn to work
+//	Function to convert a string into title case.  That is, capitalize
+//	the first letter of each word, optionally not capitalizing "small"
+//	words (a, an, of, the, and to by default).
+//
 //
 #include <adv3.h>
 #include <en_us.h>
@@ -23,7 +26,6 @@ DefineSmallWord(the);
 DefineSmallWord(to);
 
 titleCase(txt, skipSmallWords?) {
-
 	if(txt == nil) return('');
 	return(rexReplace('%<(<alphanum|squote>+)%>', txt,
 		function(s, idx) {

@@ -4,6 +4,7 @@
 //
 //	Implements the equivalent of objInScop() for indirect objects.
 //
+//
 #include <adv3.h>
 #include <en_us.h>
 

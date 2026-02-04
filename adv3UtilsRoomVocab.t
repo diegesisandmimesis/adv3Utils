@@ -2,6 +2,20 @@
 //
 // adv3UtilsRoomVocab.t
 //
+//	Tweak the Room class to make it easier to refer to rooms in
+//	commands.
+//
+//	If a Room instance doesn't already have vocabWords declared,
+//	it will get "room" plus the room name as vocabulary.  If it does
+//	have vocabWords that will be used instead.
+//
+//	Also tweaks scope rules so adjacent rooms will get the failure
+//	message defined in playerActionMessage.roomUnseenAdjacent() instead
+//	of the default.  So if you're in the Red Room and the Blue Room is
+//	adjacent, then >X BLUE ROOM will give "If oyu want to do anything
+//	with the blue room, you need to go there first." instead of
+//	"You see no blue room here. "
+//
 //
 #include <adv3.h>
 #include <en_us.h>

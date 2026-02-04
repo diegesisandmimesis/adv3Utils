@@ -2,6 +2,14 @@
 //
 // adv3UtilsMessageTokens.t
 //
+//	Adds a MessageToken class.  Basic usage is:
+//
+//		MessageToken 'foozle' ->(&someMethod) @someObject;
+//
+//	Then the you can write messages like '{You/he} see{s} {foozle}
+//	here. ', and '{foozle}' will be replaced with the return value
+//	of someObject.someMethod();
+//
 //
 #include <adv3.h>
 #include <en_us.h>

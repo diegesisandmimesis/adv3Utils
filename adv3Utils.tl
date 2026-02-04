@@ -7,6 +7,8 @@ source: adv3UtilsRoomVocab.t
 source: adv3UtilsTitleCase.t
 source: adv3UtilsOrdinalThing.t
 source: adv3UtilsThingStateMulti.t
+source: adv3UtilsThingStateDesc.t
+source: adv3UtilsThingStateRoom.t
 source: adv3UtilsIobjScope.t
 source: adv3UtilsMessageTokens.t
 source: adv3UtilsDebug.t
