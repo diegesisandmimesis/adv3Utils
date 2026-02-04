@@ -52,12 +52,6 @@ modify ThingState
 	isActive() { return(isMulti() ? (active == true) : true); }
 	isMulti() { return(order > -1); }
 
-	//stateDesc = ""
-	//roomRemoteDesc(actor) {}
-	//roomDesc = ""
-	//roomFirstDesc { roomDesc; }
-	//roomDarkDesc = ""
-
 	matchName(obj, origTokens, toks, states) {
 		local i, l, len, tok;
 
@@ -96,38 +90,3 @@ modify ThingState
 		return(obj);
 	}
 ;
-
-/*
-modify Thing
-	examineStatus() {
-		local st;
-
-		inherited();
-
-		if((st = getState()) != nil)
-			st.stateDesc;
-	}
-
-	lookAroundWithinDesc(actor, illum) {
-		local pov, st;
-
-		if(illum > 1) {
-			pov = getPOVDefault(actor);
-			st = getState();
-			if(!actor.isIn(self) || (actor != pov)) {
-				roomRemoteDesc(actor);
-				if(st) st.roomRemoteDesc(actor);
-			} else if(actor.hasSeen(self)) {
-				roomDesc;
-				if(st) st.roomDesc;
-			} else {
-				roomFirstDesc;
-				if(st) st.roomFirstDesc;
-			}
-		} else {
-			roomDarkDesc;
-			if(st) st.roomDarkDesc;
-		}
-	}
-;
-*/

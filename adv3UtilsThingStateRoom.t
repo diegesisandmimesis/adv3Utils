@@ -47,26 +47,5 @@ modify Thing
 		} else {
 			st.roomDarkDesc;
 		}
-	/*
-		local pov, st;
-
-		if(illum > 1) {
-			pov = getPOVDefault(actor);
-			st = getState();
-			if(!actor.isIn(self) || (actor != pov)) {
-				roomRemoteDesc(actor);
-				if(st) st.roomRemoteDesc(actor);
-			} else if(actor.hasSeen(self)) {
-				roomDesc;
-				if(st) st.roomDesc;
-			} else {
-				roomFirstDesc;
-				if(st) st.roomFirstDesc;
-			}
-		} else {
-			roomDarkDesc;
-			if(st) st.roomDarkDesc;
-		}
-		*/
 	}
 ;
