@@ -10,5 +10,6 @@ source: adv3UtilsThingStateMulti.t
 source: adv3UtilsThingStateDesc.t
 source: adv3UtilsThingStateRoom.t
 source: adv3UtilsIobjScope.t
+source: adv3UtilsInterruptImplicit.t
 source: adv3UtilsMessageTokens.t
 source: adv3UtilsDebug.t

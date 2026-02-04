@@ -19,6 +19,9 @@
 #define gTurn (libGlobal.currentTurn())
 #endif // gTurn
 
+#define gInterruptImplicit \
+        (interruptImplicitHandler.interruptImplicitAction)
+
 #define DefineSmallWord(v) \
 	v##SmallWord: SmallWord \
 		word = 'v'
