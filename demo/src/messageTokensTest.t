@@ -25,28 +25,31 @@ versionInfo: GameID;
 gameMain: GameMainDef initialPlayerChar = me;
 
 startRoom: Room '{void}'
-	"This is {voiddesc} with a sign on the wall. "
+	""
 	vocabWords = '(featureless) (some) (odd) void/room'
 	allStates = [ nonVoid, void ]
 	getState() {
 		return(gRevealed('void') ? void : nonVoid);
 	}
 	voidName() { return(getState().voidName); }
-	voidDesc() { return(getState().voidDesc); }
 ;
 +nonVoid: ThingState
-	stateTokens = [ 'odd', 'some' ]
+	order = 1
+	active = true
+	stateTokens = [ 'odd' ]
+	roomDesc = "This is an odd room with a sign on the wall. "
 	voidName = 'Some Room'
-	voidDesc = 'an odd room'
 ;
 +void: ThingState
+	order = 2
+	active = (gRevealed('void'))
 	stateTokens = [ 'featureless', 'void' ]
+	roomDesc = "This is a featureless void with a sign on the wall that
+		totally doesn't count as a feature. "
 	voidName = 'Void'
-	voidDesc = 'a featureless void'
 ;
 +sign: Decoration 'sign' 'sign'
 	"<q>This is the Void.</q> <.reveal void> ";
 +me: Person;
 
 MessageToken 'void' ->(&voidName) @startRoom;
-MessageToken 'voidDesc' ->(&voidDesc) @startRoom;
