@@ -15,6 +15,9 @@
 #endif // INT_MATH_H
 #endif // ROMAN_ORDINAL
 
+#ifdef gTurn
+#undef gTurn
+#endif // gTurn
 #ifndef gTurn
 #define gTurn (libGlobal.currentTurn())
 #endif // gTurn
