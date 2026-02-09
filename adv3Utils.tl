@@ -12,4 +12,5 @@ source: adv3UtilsThingStateRoom.t
 source: adv3UtilsIobjScope.t
 source: adv3UtilsInterruptImplicit.t
 source: adv3UtilsMessageTokens.t
+source: adv3UtilsActionType.t
 source: adv3UtilsDebug.t

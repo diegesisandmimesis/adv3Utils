@@ -48,5 +48,7 @@ MessageToken template 'id' ->prop @obj;
 #define gDebugObj(obj)
 #endif // __DEBUG
 
+#define SetActionType(name, t) \
+	modify name##Action actionType = t;
 
 #define ADV3_UTILS_H
