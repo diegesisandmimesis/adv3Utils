@@ -40,6 +40,12 @@ class Resource: Thing
 	// there's no other instance in scope besides the one in the
 	// factory.
 	dobjFor(Take) {
+		verify() {
+		//aioSay('\nlen = <<toString(gDobjCount)>>\n ');
+			if(isInFactory(self))
+				logicalRank(50, 'factory');
+			inherited();
+		}
 		action() {
 			if(isInFactory(self))
 				replaceAction(TakeFrom, self, self.location);

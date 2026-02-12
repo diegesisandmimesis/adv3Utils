@@ -27,25 +27,20 @@ gameMain: GameMainDef initialPlayerChar = me;
 
 class Pebble: Resource '(small) (round) pebble*pebbles' 'pebble'
 	"A small, round pebble. "
-	/*
-	dobjFor(TakeCount) {
-		verify() { dangerous; }
-		action() {
-			requireCount;
-			self.location.countKludge = gActionCount;
-			replaceAction(TakeCountFrom, self, self.location);
-		}
-	}
-	dobjFor(TakeCountFrom) {
-		verify() { dangerous; }
-	}
-	*/
+;
+
+class Rock: Thing '(ordinary) rock*rocks' 'rock'
+	"An ordinary rock. "
+	isEquivalent = true
 ;
 
 startRoom: Room 'Void'
 	"This is a formless void containing a bucket of infinite pebbles. "
 ;
 +me: Person;
++Rock;
++Rock;
++Rock;
 +bucket: Fixture, ResourceFactory '(infinite) (pebbles) bucket' 'bucket'
 	"It contains...let's see...looks like an infinite number of
 	pebbles. "

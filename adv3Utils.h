@@ -46,6 +46,8 @@ Room template 'roomName' 'destName'? 'name'? 'vocabWords'? "desc"?;
 
 MessageToken template 'id' ->prop @obj;
 
+#define gDobjCount ((gAction && gAction.dobjList_) ? gAction.dobjList_.length : 0)
+
 #ifdef __DEBUG
 #define gDebugObj(obj) (_debugObject(obj))
 #else // __DEBUG
