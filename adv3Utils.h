@@ -33,6 +33,10 @@
 
 #define isSmallWord(v) (isString(v) && (_sw.smallWords.indexOf(v.toLower()) != nil))
 #define isMessageToken(obj) (obj != nil) && obj.ofKind(MessageToken)
+#define isResource(obj) isType(obj, Resource)
+#define isResourceFactory(obj) isType(obj, ResourceFactory)
+#define isInFactory(obj) (isResource(obj) && isResourceFactory(obj.location) \
+		&& (obj.ofKind(obj.location.resourceClass)))
 
 OrdinalThing template 'vocabWords' 'name' +ordinalNumber 'ordinalVocab'? @location? "desc"?;
 OrdinalThing template 'vocabWords' 'name' +ordinalNumber [ordinalVocab]? @location? "desc"?;
