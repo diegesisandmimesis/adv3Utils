@@ -13,4 +13,5 @@ source: adv3UtilsIobjScope.t
 source: adv3UtilsInterruptImplicit.t
 source: adv3UtilsMessageTokens.t
 source: adv3UtilsActionType.t
+source: adv3UtilsSearchContents.t
 source: adv3UtilsDebug.t
