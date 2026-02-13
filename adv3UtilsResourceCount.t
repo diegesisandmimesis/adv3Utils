@@ -10,27 +10,45 @@
 
 #ifdef RESOURCE_COUNT
 
-#include "requireCount.h"
+DefineTAction(TakeCount)
+	countAction = true
+	objInScope(obj) { return(isInFactory(obj)); }
+;
+VerbRule(TakeCount)
+	( 'take' | 'pick' 'up' | 'get' ) singleNumber dobjList
+	| 'pick' singleNumber dobjList 'up'
+	: TakeCountAction
+	verbPhrase = 'take/taking (what)'
+;
+
+DefineTIAction(TakeCountFrom)
+	countAction = true
+	objInScope(obj) { return(isInFactory(obj)); }
+;
+VerbRule(TakeCountFrom)
+	( 'take' | 'get' ) singleNumber dobjList
+		( 'from' | 'out' 'of' | 'off' | 'off' 'of') singleIobj
+	| 'remove' singleNumber dobjList 'from' singleIobj
+	: TakeCountFromAction
+	verbPhrase = 'take/taking (what) (from what)'
+;
+
+/*
+inFactory: PreCondition
+	verifyPreCondition(obj) {
+		if(isInFactory(obj)) {
+			logicalRank(150, 'in factory');
+		} else {
+			logicalRank(50, 'not in factory');
+		}
+	}
+;
+*/
 
 modify Resource
-	vocabLikelihood() {
-		if(!isInFactory(self)) return(0);
-		if(gAction && gAction.foozle) return(-100);
-		//if(isType(gAction, TActionWithCount)) return(0);
-		return(0);
-	}
-
 	dobjFor(TakeCount) {
-		verify() {
-			//if(!isInFactory(self)) illogical('');
-			if(!isInFactory(self))
-				nonObvious;
-			dangerous;
-		}
 		action() {
 			if(!gAction.numMatch) return;
-			//aioSay('\ncount = <<gAction.numMatch.getval()>>\n ');
-			//requireCount;
 			self.location.resourceCount = gAction.numMatch.getval();
 			replaceAction(TakeCountFrom, self, self.location);
 		}
@@ -44,10 +62,19 @@ modify Resource
 modify ResourceFactory
 	resourceCount = nil
 
+	getResourceCount() {
+		return(resourceCount ? resourceCount :
+			((gAction && gAction.numMatch)
+				? gAction.numMatch.getval()
+				: 0));
+	}
+
 	iobjFor(TakeCountFrom) {
 		verify() {}
 		action() {
 			local i, obj;
+
+			resourceCount = getResourceCount();
 
 			if(!resourceCount) return;
 			for(i = 0; i < resourceCount; i++) {
@@ -58,41 +85,6 @@ modify ResourceFactory
 			resourceCount = nil;
 		}
 	}
-;
-
-/*
-DefineTActionWithCount(TakeCount);
-VerbRule(TakeCount)
-	( 'take' | 'pick' 'up' | 'get' ) singleDobjWithCount
-	| 'pick' singleDobjWithCount 'up'
-	: TakeCountAction
-	verbPhrase = 'take/taking (what)'
-;
-
-DefineTIActionWithCount(TakeCountFrom);
-VerbRule(TakeCountFrom)
-	( 'take' | 'get' ) singleDobjWithCount
-		( 'from' | 'out' 'of' | 'off' | 'off' 'of') singleIobj
-	| 'remove' singleDobjWithCount 'from' singleIobj
-	: TakeCountFromAction
-	verbPhrase = 'take/taking (what) (from what)'
-;
-*/
-DefineTAction(TakeCount) foozle = true;
-VerbRule(TakeCount)
-	( 'take' | 'pick' 'up' | 'get' ) singleNumber dobjList
-	| 'pick' singleNumber dobjList 'up'
-	: TakeCountAction
-	verbPhrase = 'take/taking (what)'
-;
-
-DefineTIAction(TakeCountFrom) foozle = true;
-VerbRule(TakeCountFrom)
-	( 'take' | 'get' ) singleNumber dobjList
-		( 'from' | 'out' 'of' | 'off' | 'off' 'of') singleIobj
-	| 'remove' singleNumber dobjList 'from' singleIobj
-	: TakeCountFromAction
-	verbPhrase = 'take/taking (what) (from what)'
 ;
 
 #endif // RESOURCE_COUNT

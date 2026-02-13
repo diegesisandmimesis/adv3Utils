@@ -35,6 +35,8 @@ class Resource: Thing
 
 	isEquivalent = true
 
+	hideFromAll(action) { return(isInFactory(self)); }
+
 	// The factory handles things for >TAKE [resource] FROM [factory],
 	// but we also have to handle >TAKE [resource] by itself when
 	// there's no other instance in scope besides the one in the
