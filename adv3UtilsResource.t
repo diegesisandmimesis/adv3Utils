@@ -10,8 +10,11 @@
 
 modify playerActionMessages
 	// Default success message.
-	okayTakeResource = '{You/He} take{s} {an dobj/her} from
-		{the iobj/him}. '
+	okayTakeResource(src) {
+		gMessageParams(src);
+		return('{You/He} take{s} {an dobj/her} from
+			{the src/him}. ');
+	}
 
 	okayTakeResourceCount(n) {
 		return('{You/He} take{s} <<spellInt(n)>>
@@ -29,6 +32,11 @@ modify playerActionMessages
 ;
 
 class Resource: Thing
+	// Custom >TAKE result message.  Note the "factory" message
+	// parameter, which matches our factory object.
+	resourceTakeDesc = "{You/He} take{s} {an dobj/her} from
+		{the factory/him}. "
+
 	// Tweak vocabulary likelihood so we don't show up in disambiguation
 	// prompts if we're still in the factory.
 	vocabLikelihood = (isInFactory(self) ? -30 : 0)
@@ -37,21 +45,26 @@ class Resource: Thing
 
 	hideFromAll(action) { return(isInFactory(self)); }
 
-	// The factory handles things for >TAKE [resource] FROM [factory],
-	// but we also have to handle >TAKE [resource] by itself when
-	// there's no other instance in scope besides the one in the
-	// factory.
 	dobjFor(Take) {
-		verify() {
-		//aioSay('\nlen = <<toString(gDobjCount)>>\n ');
-			if(isInFactory(self))
-				logicalRank(50, 'factory');
-			inherited();
-		}
 		action() {
+			local factory;
+
+			// Remember if we started in our factory.
+			factory = nil;
 			if(isInFactory(self))
-				replaceAction(TakeFrom, self, self.location);
+				factory = location;
+
+			// Handle the normal >TAKE logic
 			inherited();
+
+			// If we started out in our factory, replace the
+			// stock take message with our custom message and
+			// then tell the factory to refill itself.
+			if(factory) {
+				gMessageParams(factory);
+				resourceTakeDesc;
+				factory.refillFactory();
+			}
 		}
 	}
 ;
@@ -68,16 +81,16 @@ class ResourceFactory: Container
 	// Boolean.  If true we can put resource instances back in the factory.
 	resourceReturnable = nil
 
-	// Actual resource dispensing logic.
-	iobjFor(TakeFrom) {
-		action() {
-			local obj;
+	// The maximum number of resources available in the factory at any
+	// given time.
+	maxResources = 1
 
-			obj = createResource();
-			obj.moveInto(gActor);
-			defaultReport(&okayTakeResource);
-			exit;
-		}
+	// Boolean.  If true, the factory will try to always have
+	// maxResources on hand.
+	refillResources = true
+
+	getResourceCount() {
+		return(searchContents({ x: isType(x, resourceClass) }).length);
 	}
 
 	// Handle returns.
@@ -103,6 +116,21 @@ class ResourceFactory: Container
 		}
 	}
 
+	// Refill the factory.  Optional arg is boolean.  By default
+	// we don't refill unless the refillResource flag is true.  If
+	// the force arg is true we refill regardless.
+	refillFactory(force?) {
+		local obj;
+
+		if((refillResources != true) && (force != true))
+			return;
+
+		while(getResourceCount() < maxResources) {
+			obj = createResource();
+			obj.moveInto(self);
+		}
+	}
+
 	// Resource creation method.  By default we just create an instance
 	// of our resource class, but subclasses can fancy this up if
 	// needed.
@@ -112,15 +140,6 @@ class ResourceFactory: Container
 
 	initializeThing() {
 		inherited();
-		initializeFactory();
-	}
-
-	// Factory initialization.  We create an instance of our resource
-	// and add it to ourselves.  This is what saves us from
-	// >TAKE [resource] failing with "You see no [resource] here. ".
-	initializeFactory() {
-		if(contains({ x: x.ofKind(resourceClass) }))
-			return;
-		createResource().moveInto(self);
+		refillFactory(true);
 	}
 ;

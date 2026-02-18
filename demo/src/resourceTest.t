@@ -29,7 +29,8 @@ class Pebble: Resource '(small) (round) pebble*pebbles' 'pebble'
 ;
 
 startRoom: Room 'Void'
-	"This is a formless void containing a bucket of infinite pebbles. "
+	"This is a formless void containing a bucket which always contains
+	three pebbles. "
 ;
 +me: Person;
 +bucket: Fixture, ResourceFactory '(infinite) (pebbles) bucket' 'bucket'
@@ -37,4 +38,5 @@ startRoom: Room 'Void'
 	pebbles. "
 	resourceClass = Pebble
 	resourceReturnable = true
+	maxResources = 3
 ;

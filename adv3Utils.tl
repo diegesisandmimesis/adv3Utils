@@ -15,5 +15,4 @@ source: adv3UtilsMessageTokens.t
 source: adv3UtilsActionType.t
 source: adv3UtilsSearchContents.t
 source: adv3UtilsResource.t
-source: adv3UtilsResourceCount.t
 source: adv3UtilsDebug.t
