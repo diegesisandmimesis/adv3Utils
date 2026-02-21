@@ -14,10 +14,16 @@
 #include "adv3Utils.h"
 
 modify playerActionMessages
+	cantUnlockOneWay = '{The dobj/he} {do dobj}n\'t appear{s dobj}
+		to open from this side. '
+	needToUnlockOneWay = '{The dobj/he} open{s dobj} from this side,
+		but {you/he} {has} to do it {yourself}. '
 	okayAutoUnlock = '{You/He} unlock{s} {the dobj/him} from
 		this side. '
 ;
 
+// Tweak to change the default implicit action report for doors that
+// auto-unlock from one side.
 modify OpenAction
 	getImplicitPhrase(ctx) {
 		if(dobjCur_.verbPhraseDobjOpen != nil)
@@ -26,10 +32,15 @@ modify OpenAction
 	}
 ;
 
+// Mixin class for doors that auto-unlock when tried from one side.
 class AutoUnlock: Lockable
-	okayAutoUnlock = &okayAutoUnlock
+	//okayAutoUnlock = &okayAutoUnlock
 
+
+	// IMPORTANT/CONFUSING:  If this isn't true then we don't get
+	// our custom messages unless the locking mechanism is apparent.
 	autoUnlockOnOpen = true
+
 	isLocked() {
 		if(masterObject != self)
 			return(nil);
@@ -46,5 +57,9 @@ class AutoUnlock: Lockable
 	}
 ;
 
-class OneWayDoor: IndirectLockable, AutoUnlock, Door;
+class OneWayDoor: IndirectLockable, AutoUnlock, Door
+	cannotUnlockMsg = ((masterObject == self)
+		? &cantUnlockOneWay : &needToUnlockOneWay)
+;
+
 class AutoUnlockDoorWithKey: LockableWithKey, AutoUnlock, Door;

@@ -1,6 +1,6 @@
 #charset "us-ascii"
 //
-// autoUnlockTest.t
+// autoUnlockTest2.t
 // Version 1.0
 // Copyright 2022 Diegesis & Mimesis
 //
@@ -8,7 +8,7 @@
 //
 // It can be compiled via the included makefile with
 //
-//	# t3make -f autoUnlockTest.t3m
+//	# t3make -f autoUnlockTest2.t3m
 //
 // ...or the equivalent, depending on what TADS development environment
 // you're using.
@@ -26,12 +26,7 @@ gameMain: GameMainDef
 	initialPlayerChar = me
 ;
 
-key01: Key '(brass) key' 'key' "A brass key. ";
-
-//class DemoDoor: LockableWithKey, AutoUnlock, Door
-class DemoDoor: AutoUnlockDoorWithKey
-	keyList = static [ key01 ]
-;
+class DemoDoor: OneWayDoor;
 
 southRoom: Room 'South Room'
 	"This is the south room. To the north is the door to the north
