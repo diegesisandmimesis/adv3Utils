@@ -14,12 +14,16 @@
 #include "adv3Utils.h"
 
 modify playerActionMessages
+	cantAutoOpenImplicit = '{The dobj/he} {is dobj} locked but
+		it looks like {you/he} can unlock {it dobj/him} from this
+		side. '
 	cantUnlockOneWay = '{The dobj/he} {do dobj}n\'t appear{s dobj}
 		to open from this side. '
 	needToUnlockOneWay = '{The dobj/he} open{s dobj} from this side,
 		but {you/he} {has} to do it {yourself}. '
 	okayAutoUnlock = '{You/He} unlock{s} {the dobj/him} from
 		this side. '
+	okayAutoLock = '{You/He} lock{s} {the dobj/him} from this side. '
 ;
 
 // Tweak to change the default implicit action report for doors that
@@ -34,26 +38,50 @@ modify OpenAction
 
 // Mixin class for doors that auto-unlock when tried from one side.
 class AutoUnlock: Lockable
-	//okayAutoUnlock = &okayAutoUnlock
-
-
 	// IMPORTANT/CONFUSING:  If this isn't true then we don't get
 	// our custom messages unless the locking mechanism is apparent.
 	autoUnlockOnOpen = true
 
+	allowImplicit = true
+
 	isLocked() {
-		if(masterObject != self)
-			return(nil);
+		//if(masterObject != self)
+			//return(nil);
 		return(inherited);
 	}
 
+	isUnlockable() {
+		if(masterObject != self)
+			return(nil);
+		return(true);
+	}
+
+	dobjFor(Unlock) {
+		verify() {
+			if(isLocked() && isUnlockable())
+				return;
+			inherited();
+		}
+	}
+
 	dobjFor(Open) {
+		//preCond = (inherited() + autoUnlockable)
+		verify() {
+			if(isLocked() && gAction.isImplicit
+				&& !allowImplicit)
+				illogicalNow(&cantAutoOpenImplicit);
+			inherited();
+		}
 		action() {
 			if(!gAction.isImplicit)
 				defaultReport(&okayAutoUnlock);
-			inherited;
+			inherited();
 		}
-		verbPhrase = 'unlock/unlocking (what) from this side'
+		verbPhrase = (allowImplicit
+			? 'unlock/unlocking (what) from this side'
+			: 'open/opening (what)')
+
+		//verbPhrase = 'unlock/unlocking (what) from this side'
 	}
 ;
 
@@ -62,4 +90,32 @@ class OneWayDoor: IndirectLockable, AutoUnlock, Door
 		? &cantUnlockOneWay : &needToUnlockOneWay)
 ;
 
-class AutoUnlockDoorWithKey: LockableWithKey, AutoUnlock, Door;
+class AutoUnlockDoorWithKey: LockableWithKey, AutoUnlock, Door
+	dobjFor(Lock) {
+		verify() {
+			if(!isLocked() && isUnlockable())
+				return;
+			inherited();
+		}
+		action() {
+			makeLocked(nil);
+			defaultReport(&okayAutoLock);
+		}
+	}
+	dobjFor(Unlock) {
+		verify() {
+			if(isLocked() && isUnlockable())
+				return;
+			inherited();
+		}
+		action() {
+			if(!gAction.isImplicit) {
+				makeLocked(nil);
+				defaultReport(&okayAutoUnlock);
+				return;
+			}
+			inherited();
+		}
+	}
+
+;

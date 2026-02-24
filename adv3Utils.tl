@@ -4,7 +4,7 @@ source: adv3UtilsGTurn.t
 source:	adv3UtilsFindMaxValue.t
 source: adv3UtilsRoom.t
 source: adv3UtilsRoomVocab.t
-source: adv3UtilsOneWayDoor.t
+source: adv3UtilsEasyDoor.t
 source: adv3UtilsTitleCase.t
 source: adv3UtilsOrdinalThing.t
 source: adv3UtilsThingStateMulti.t

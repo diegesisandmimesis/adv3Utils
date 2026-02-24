@@ -1,6 +1,6 @@
 #charset "us-ascii"
 //
-// autoUnlockTest.t
+// easyDoorTest.t
 // Version 1.0
 // Copyright 2022 Diegesis & Mimesis
 //
@@ -8,7 +8,7 @@
 //
 // It can be compiled via the included makefile with
 //
-//	# t3make -f autoUnlockTest.t3m
+//	# t3make -f easyDoorTest.t3m
 //
 // ...or the equivalent, depending on what TADS development environment
 // you're using.
@@ -26,24 +26,17 @@ gameMain: GameMainDef
 	initialPlayerChar = me
 ;
 
-key01: Key '(brass) key' 'key' "A brass key. ";
+key0: Key '(brass) key' 'key' "A brass key. ";
 
-//class DemoDoor: LockableWithKey, AutoUnlock, Door
-class DemoDoor: AutoUnlockDoorWithKey
-	keyList = static [ key01 ]
-	allowImplicit = nil
-;
+demoDoor0: EasyDoor '(wooden) door' 'door' "A wooden door. ";
 
 southRoom: Room 'South Room'
 	"This is the south room. To the north is the door to the north
 		room and to the east is the alternate route. "
-	north = demoDoor1
+	north = demoDoor0
 	east = alternateRoom
 ;
 +me: Person;
-+demoDoor1: DemoDoor 'door' 'door'
-	destination = northRoom
-;
 
 alternateRoom: Room 'Alternate Route'
 	"This is the alternate route.  The north room is to the northwest
@@ -56,10 +49,5 @@ northRoom: Room 'North Room'
 	"This is a the north room.  The south room is south and the alternate
 	route is to the southeast. "
 	south = demoDoor0
-	southEast = alternateRoom
+	southeast = alternateRoom
 ;
-+demoDoor0: DemoDoor 'door' 'door'
-	destination = southRoom
-	masterObject = demoDoor1
-;
-
