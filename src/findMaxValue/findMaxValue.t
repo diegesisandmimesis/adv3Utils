@@ -1,6 +1,6 @@
 #charset "us-ascii"
 //
-// adv3UtilsFindMaxValue.t
+// findMaxValue.t
 //
 // Function to help find the maximum value of an arbitrary callback function
 // that will not throw an exception.

@@ -1,6 +1,6 @@
 #charset "us-ascii"
 //
-// adv3UtilsThingStateRoom.t
+// thingStateRoom.t
 //
 //	Extends ThingState to work with rooms.
 //

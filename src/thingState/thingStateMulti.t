@@ -1,6 +1,6 @@
 #charset "us-ascii"
 //
-// adv3UtilsThingStateMulti.t
+// thingStateMulti.t
 //
 //	Extends ThingState to allow multiple states to be active at once.
 //

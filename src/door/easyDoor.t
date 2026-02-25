@@ -1,6 +1,6 @@
 #charset "us-ascii"
 //
-// adv3UtilsEasyDoor.t
+// easyDoor.t
 //
 //
 #include <adv3.h>

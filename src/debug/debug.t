@@ -1,6 +1,6 @@
 #charset "us-ascii"
 //
-// adv3UtilsDebug.t
+// debug.t
 //
 #include <adv3.h>
 #include <en_us.h>

@@ -1,6 +1,6 @@
 #charset "us-ascii"
 //
-// adv3UtilsGTurn.t
+// gTurn.t
 //
 //	Tweak libGlobal for gTurn to work
 //

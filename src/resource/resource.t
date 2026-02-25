@@ -1,6 +1,6 @@
 #charset "us-ascii"
 //
-// adv3UtilsResource.t
+// resource.t
 //
 //
 #include <adv3.h>

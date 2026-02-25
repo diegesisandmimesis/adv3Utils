@@ -1,6 +1,6 @@
 #charset "us-ascii"
 //
-// adv3UtilsInterruptImplicit.t
+// interruptImplicit.t
 //
 //	Use the gInterruptImplicit macro to interrupt an implicit action.
 //	The return value is true on success, nil if the current action

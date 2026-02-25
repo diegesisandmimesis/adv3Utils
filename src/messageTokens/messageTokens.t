@@ -1,6 +1,6 @@
 #charset "us-ascii"
 //
-// adv3UtilsMessageTokens.t
+// messageTokens.t
 //
 //	Adds a MessageToken class.  Basic usage is:
 //

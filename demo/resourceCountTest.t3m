@@ -1,0 +1,11 @@
+-D LANGUAGE=en_us
+-D MESSAGESTYLE=neu
+-D RESOURCE_COUNT
+-Fy obj -Fo obj
+-Fs ../..
+-o games/resourceCountTest.t3
+-lib system
+-lib adv3/adv3
+-lib ../adv3Utils
+-source src/resourceCountTest.t
+-source reflect

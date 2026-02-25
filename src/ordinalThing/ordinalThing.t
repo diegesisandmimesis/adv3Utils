@@ -1,6 +1,6 @@
 #charset "us-ascii"
 //
-// adv3UtilsOrdinalVocab.t
+// ordinalThing.t
 //
 //	Adds a convenience method to Thing to make it easier to refer
 //	to numbered/ordered objects:  the first chair, chair #1, and so on.

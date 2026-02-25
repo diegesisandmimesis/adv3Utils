@@ -1,6 +1,6 @@
 #charset "us-ascii"
 //
-// adv3UtilsThingStateDesc.t
+// thingStateDesc.t
 //
 //	Extends ThingState to have a stateDesc similar to ActorState.
 //

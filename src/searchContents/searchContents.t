@@ -1,6 +1,6 @@
 #charset "us-ascii"
 //
-// adv3UtilsSearchContents.t
+// searchContents.t
 //
 //	Convenience methods for searching an object's contents.
 //

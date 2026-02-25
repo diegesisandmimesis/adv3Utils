@@ -1,6 +1,6 @@
 #charset "us-ascii"
 //
-// adv3UtilsOneWayDoor.t
+// oneWayDoor.t
 //
 //	IMPORTANT: need to tweak the procgen one-way door classes to
 //	use these after they're done:
@@ -44,12 +44,6 @@ class AutoUnlock: Lockable
 
 	allowImplicit = true
 
-	isLocked() {
-		//if(masterObject != self)
-			//return(nil);
-		return(inherited);
-	}
-
 	isUnlockable() {
 		if(masterObject != self)
 			return(nil);
@@ -65,7 +59,6 @@ class AutoUnlock: Lockable
 	}
 
 	dobjFor(Open) {
-		//preCond = (inherited() + autoUnlockable)
 		verify() {
 			if(isLocked() && gAction.isImplicit
 				&& !allowImplicit)
@@ -80,8 +73,6 @@ class AutoUnlock: Lockable
 		verbPhrase = (allowImplicit
 			? 'unlock/unlocking (what) from this side'
 			: 'open/opening (what)')
-
-		//verbPhrase = 'unlock/unlocking (what) from this side'
 	}
 ;
 
@@ -117,5 +108,4 @@ class AutoUnlockDoorWithKey: LockableWithKey, AutoUnlock, Door
 			inherited();
 		}
 	}
-
 ;

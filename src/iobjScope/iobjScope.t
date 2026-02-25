@@ -1,6 +1,6 @@
 #charset "us-ascii"
 //
-// adv3UtilsIobjCase.t
+// iobjScope.t
 //
 //	Implements the equivalent of objInScop() for indirect objects.
 //

@@ -1,6 +1,6 @@
 #charset "us-ascii"
 //
-// adv3UtilsRoomVocab.t
+// roomVocab.t
 //
 //	Tweak the Room class to make it easier to refer to rooms in
 //	commands.

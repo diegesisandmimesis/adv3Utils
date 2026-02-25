@@ -1,6 +1,6 @@
 #charset "us-ascii"
 //
-// adv3UtilsActionType.t
+// actionType.t
 //
 //
 #include <adv3.h>

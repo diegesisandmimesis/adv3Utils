@@ -1,6 +1,6 @@
 #charset "us-ascii"
 //
-// adv3UtilsRoom.t
+// room.t
 //
 //	The Room class definition is extended to have a couple of
 //	utility methods:
