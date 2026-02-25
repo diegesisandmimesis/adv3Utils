@@ -16,11 +16,11 @@ modify playerActionMessages
 		side. '
 	
 	// Verify failure for >LOCK when on the other side of the door.
-	cannotLockDeadboltHere = '{The dobj/he} {do dobj}n\'t appear{s dobj}
+	cannotLockDeadboltHere = '{The dobj/he} {do dobj}n\'t appear
 		to be lockable from this side. '
 	
 	// Verify failure for >UNLOCK when on the other side of the door.
-	cannotUnlockDeadboltHere = '{The dobj/he} {do dobj}n\'t appear{s dobj}
+	cannotUnlockDeadboltHere = '{The dobj/he} {do dobj}n\'t appear
 		to open from this side. '
 
 	// Obscure; this is for when cannotUnlockMsg is needed and it IS NOT
