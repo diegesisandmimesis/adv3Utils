@@ -28,7 +28,7 @@ gameMain: GameMainDef
 
 key0: Key '(brass) key' 'key' "A brass key. ";
 
-demoDoor0: EasyDoor '(wooden) door' 'door' "A wooden door. ";
+demoDoor0: EasyDoor ->northRoom '(wooden) door' 'door' "A wooden door. ";
 
 southRoom: Room 'South Room'
 	"This is the south room. To the north is the door to the north

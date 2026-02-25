@@ -45,7 +45,7 @@
 OrdinalThing template 'vocabWords' 'name' +ordinalNumber 'ordinalVocab'? @location? "desc"?;
 OrdinalThing template 'vocabWords' 'name' +ordinalNumber [ordinalVocab]? @location? "desc"?;
 
-EasyDoor template 'vocabWords' 'name'? "desc"?;
+EasyDoor template ->mainDoor? 'vocabWords'? 'name'? "desc"?;
 
 // Alternate Room template that allows declaration of vocabulary.
 Room template 'roomName' 'destName'? 'name'? 'vocabWords'? "desc"?;
