@@ -73,3 +73,4 @@ class Deadbolt: Lockable
 ;
 
 class DeadboltDoor: Deadbolt, Door;
+class DeadboltDoorWithKey: LockableWithKey, DeadboltDoor;

@@ -150,3 +150,13 @@ class EasyDoor: PreinitObject
 modify ThroughPassage
 	configureDoor(obj) {}
 ;
+
+// Tweak configureDoor() on LockableWithKey to add any keylist on the
+// EasyDoor.
+modify LockableWithKey
+	configureDoor(obj) {
+		if(obj.keyList)
+			keyList = obj.keyList;
+		inherited(obj);
+	}
+;
