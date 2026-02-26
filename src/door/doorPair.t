@@ -2,6 +2,79 @@
 //
 // doorPair.t
 //
+//	Logic to make it easier/less fiddly to declare doors.
+//
+//
+// USAGE
+//
+//	The simplest usage is to declare a DoorPair instance and then
+//	refer to it in the directional properties of the two rooms it
+//	connects.  Example:
+//
+//		// The vocab, name, and desc will be the same on both sides.
+//		myDoor: DoorPair '(wooden) door' 'door' "A wooden door. ";
+//
+//		southRoom: Room 'South Room'
+//			"There's a door leading north. "
+//			north = myDoor
+//		;
+//		northRoom: Room 'North Room'
+//			"There's a door leading south. "
+//			south = myDoor
+//		;
+//
+//	If the doors aren't functionally identical (for purposes of locking,
+//	for example) the room containing the "masterObject" of the pair
+//	can be defined in the mainDoorLocation property, or using the
+//	template:
+//
+//		// Explicitly set mainDoorLocation.
+//		myDoor: DoorPair '(wooden) door' 'door'
+//			"A wooden door. "
+//			mainDoorLocation = northRoom
+//		;
+//
+//		// Same as above via template.
+//		myDoor: DoorPair ->northRoom '(wooden) door' 'door'
+//			"A wooden door. ";
+//
+//	The class used when creating the doors can be specified in the
+//	doorClass property.  The default is Door.
+//
+//		// Set the door class
+//		myDoor: DoorPair '(auto) (closing) door' 'door'
+//			"An auto-closing door. "
+//			doorClass = AutoClosingDoor
+//		;
+//
+//	The doorClass can be either a single class or a list:
+//
+//		class WoodenDoor: Door '(wooden) door' 'door' "A wooden door. ";
+//		class MetalDoor: Door '(metal) door' 'door' "A metal door. ";
+//
+//		// The "main" door will use MetalDoor, the other side will
+//		// use WoodenDoor.
+//		myDoor: DoorPair ->northRoom
+//			doorClass = static [ MetalDoor, WoodenDoor ]
+//		;
+//
+//	You can also declare door instances to be used (so just using the
+//	DoorPair class to handle the logic of connecting everything up).
+//
+//		// The "main" door will be the declared instance,
+//		// and the other side will be default WoodenDoor instance.
+//		// Basically the same as the example above, only the metal
+//		// door gets a different description.
+//		myDoor: DoorPair ->northRoom
+//			doorClass = WoodenDoor
+//		;
+//		+MetalDoor = "This is a slightly different metal door. ";
+//
+//		// Both doors are statically declared.
+//		myDoor: DoorPair ->northRoom;
+//		+MetalDoor = "This is a slightly different metal door. ";
+//		+WoodenDoor;
+//
 //
 #include <adv3.h>
 #include <en_us.h>
@@ -45,7 +118,7 @@ modify TravelConnector
 class DoorPair: object
 	doorClass = Door	// Class of door we create
 
-	mainDoor = nil		// room the "masterObject" is in
+	mainDoorLocaiton = nil	// room the "masterObject" is in
 
 	name = ''
 	vocabWords = ''
@@ -104,10 +177,13 @@ class DoorPair: object
 
 	}
 
-	// Create the "real" doors we represent.
-	createDoors() {
-		local d0, d1, dst, src;
-
+	// Logic that actually creates any door instances we need, without
+	// doing any configuration.
+	_createDoors() {
+		// A temporary-ish vector to hold the door instances.  In
+		// theory we could already have some because we now support
+		// declaring them in source but if the prop is nil we're
+		// starting from scratch.
 		if(_definedDoors == nil)
 			_definedDoors = new Vector(2);
 
@@ -115,10 +191,40 @@ class DoorPair: object
 		// have some already declared, so just add more until
 		// we have enough.
 		while(_definedDoors.length < 2) {
-			_definedDoors.append(doorClass.createInstance());
+			_definedDoors.append(_getDoorClass().createInstance());
+
+			// Set the flag that indicates the door was created
+			// rather than declared.  This will prevent the
+			// DoorPair overwriting the name and so on even
+			// if they're declared on the DoorPair.
 			_definedDoors[_definedDoors.length].doorPairFlag = true;
 		}
+	}
 
+	// Get the class for a newly-created door.
+	_getDoorClass() {
+		// Easiest case.  If we're not an array type, just return
+		// the declared class.
+		if(!isCollection(doorClass))
+			return(doorClass);
+
+		// If we're here, we're in the middle of adding instances
+		// to _definedDoors.  So if _defined doors is currently
+		// n elements long, we want the class for the n + 1th
+		// door.  If the list is that long, just return that class.
+		if(doorClass.length >= _definedDoors.length + 1)
+			return(doorClass[_definedDoors.length + 1]);
+
+		// Nope, we can't map classes 1-to-1 with doors, so just
+		// use the first element of the list.
+		return(doorClass[1]);
+	}
+
+	// Create the "real" doors we represent.
+	createDoors() {
+		local d0, d1, dst, src;
+
+		_createDoors();
 		d0 = _definedDoors[1];
 		d1 = _definedDoors[2];
 
@@ -129,8 +235,8 @@ class DoorPair: object
 		// Make sure one of the doors is the "main" one.  This
 		// is used to figure out which door is what adv3 calls
 		// by the unfortunate name "masterObject".
-		if(mainDoor == nil)
-			mainDoor = src.room;
+		if(mainDoorLocation == nil)
+			mainDoorLocation = src.room;
 
 		// Basic setup.  This is where we move the doors into
 		// their rooms, hook them up to the direction properties,
@@ -159,7 +265,7 @@ class DoorPair: object
 		cfg.room.(cfg.dir.dirProp) = door;
 
 		// Declare the "masterObject".
-		if(cfg.room == mainDoor)
+		if(cfg.room == mainDoorLocation)
 			door.masterObject = door;
 		else
 			door.masterObject = otherDoor;
@@ -185,7 +291,7 @@ class DoorPair: object
 			d.initializeVocabWith(vocabWords);
 		if((d.propType(&desc) == TypeNil)
 			|| (propType(&desc) != TypeNil))
-			d.setMethod(&desc, {: "<<desc>>" });
+			d.setMethod(&desc, getMethod(&desc));
 	}
 
 	// Set the name and so on only if the door instance doesn't
@@ -206,14 +312,14 @@ class DoorPair: object
 			d.initializeVocabWith(vocabWords);
 		if((d.propType(&desc) == TypeNil)
 			&& (propType(&desc) != TypeNil))
-			d.setMethod(&desc, {: "<<desc>>" });
+			d.setMethod(&desc, getMethod(&desc));
 	}
 ;
 
-// Put a stub config method on ThroughPassage;  we call it "configureDoor()"
+// Put a stub config method on TravelConnector;  we call it "configureDoor()"
 // but we're technically happy handling any kind of travel connector.
 // But "door" is a lot easier to type.
-modify ThroughPassage
+modify TravelConnector
 	configureDoor(obj) {}
 ;
 

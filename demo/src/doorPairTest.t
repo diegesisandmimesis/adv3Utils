@@ -26,6 +26,9 @@ gameMain: GameMainDef
 	initialPlayerChar = me
 ;
 
+//class WoodenDoor: Door '(wooden) door' 'door' "A wooden door. ";
+//class MetalDoor: Door '(metal) door' 'door' "A metal door. ";
+
 key0: Key '(brass) key' 'key' "A brass key. ";
 
 demoDoor0: DoorPair ->northRoom '(wooden) door' 'door' "A wooden door. ";
