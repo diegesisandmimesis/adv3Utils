@@ -1,6 +1,6 @@
 #charset "us-ascii"
 //
-// easyDoorTest.t
+// doorPairTest2.t
 // Version 1.0
 // Copyright 2022 Diegesis & Mimesis
 //
@@ -8,7 +8,7 @@
 //
 // It can be compiled via the included makefile with
 //
-//	# t3make -f easyDoorTest.t3m
+//	# t3make -f doorPairTest2.t3m
 //
 // ...or the equivalent, depending on what TADS development environment
 // you're using.
@@ -28,7 +28,11 @@ gameMain: GameMainDef
 
 key0: Key '(brass) key' 'key' "A brass key. ";
 
-demoDoor0: EasyDoor ->northRoom '(wooden) door' 'door' "A wooden door. ";
+demoDoor0: DoorPair ->northRoom '(wooden) door' 'door' "A wooden door. ";
++Door '(metal) (different) door' 'door'
+	"A metal door quite different from the default. "
+;
++Door desc = "A wooden door, only with a tweaked description. ";
 
 southRoom: Room 'South Room'
 	"This is the south room. To the north is the door to the north

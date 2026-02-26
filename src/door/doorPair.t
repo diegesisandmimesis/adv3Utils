@@ -1,6 +1,6 @@
 #charset "us-ascii"
 //
-// easyDoor.t
+// doorPair.t
 //
 //
 #include <adv3.h>
@@ -9,7 +9,7 @@
 #include "adv3Utils.h"
 
 // Helper class.
-class _EasyDoorCfg: object
+class _DoorPairCfg: object
 	room = nil			// Room the door is in
 	dir = nil			// Direction of the door
 	construct(v0, v1) {
@@ -19,30 +19,30 @@ class _EasyDoorCfg: object
 ;
 
 // Preinit functions moved to a standalone object.  Because it turns out
-// we want to iterate over all travel connectors and all EasyDoor instances
+// we want to iterate over all travel connectors and all DoorPair instances
 // and we can't just do one in the other (we don't want to have to iterate
-// over all TravelConnectors for each EasyDoor).
-easyDoorPreinit: PreinitObject
+// over all TravelConnectors for each DoorPair).
+doorPairPreinit: PreinitObject
 	execute() {
-		forEachInstance(TravelConnector, { x: x.initializeEasyDoor() });
-		forEachInstance(EasyDoor, { x: x.initializeEasyDoor() });
+		forEachInstance(TravelConnector, { x: x.initializeDoorPair() });
+		forEachInstance(DoorPair, { x: x.initializeDoorPair() });
 	}
 ;
 
 // Modify TravelConnector check the instance and if it's the child of
-// an EasyDoor, ping it to let it know.
+// an DoorPair, ping it to let it know.
 modify TravelConnector
 	// Flag used to distinguish between connectors that are created
-	// by EasyDoor and ones that are declared statically.
-	easyDoorFlag = nil
+	// by DoorPair and ones that are declared statically.
+	doorPairFlag = nil
 
-	initializeEasyDoor() {
-		if(isEasyDoor(location))
+	initializeDoorPair() {
+		if(isDoorPair(location))
 			location.addDoor(self);
 	}
 ;
 
-class EasyDoor: object
+class DoorPair: object
 	doorClass = Door	// Class of door we create
 
 	mainDoor = nil		// room the "masterObject" is in
@@ -66,7 +66,7 @@ class EasyDoor: object
 		return(true);
 	}
 
-	initializeEasyDoor() {
+	initializeDoorPair() {
 		// List for all the locations we're mentioned in.
 		_locations = new Vector();
 
@@ -98,7 +98,7 @@ class EasyDoor: object
 
 			// Remember that this 
 			if(dst == self) {
-				_locations.append(new _EasyDoorCfg(rm, d));
+				_locations.append(new _DoorPairCfg(rm, d));
 			}
 		});
 
@@ -116,7 +116,7 @@ class EasyDoor: object
 		// we have enough.
 		while(_definedDoors.length < 2) {
 			_definedDoors.append(doorClass.createInstance());
-			_definedDoors[_definedDoors.length].easyDoorFlag = true;
+			_definedDoors[_definedDoors.length].doorPairFlag = true;
 		}
 
 		d0 = _definedDoors[1];
@@ -150,7 +150,7 @@ class EasyDoor: object
 	}
 
 	// Basic setup.  door and otherDoor are instances of doorClass,
-	// and cfg and otherCfg are instances of _EasyDoorCfg.
+	// and cfg and otherCfg are instances of _DoorPairCfg.
 	initDoor(door, cfg, otherDoor, otherCfg) {
 		// Put the door in its room.
 		door.moveInto(cfg.room);
@@ -169,7 +169,7 @@ class EasyDoor: object
 	}
 
 	_tweakVocab(d) {
-		if(d.easyDoorFlag == true)
+		if(d.doorPairFlag == true)
 			_tweakVocabDefault(d);
 		else
 			_tweakVocabSafe(d);
@@ -193,12 +193,12 @@ class EasyDoor: object
 	// lexically added to us can have different properties than
 	// the class.  Really an implementation wart:  this only saves
 	// effort if one of the instances wants to override the
-	// EasyDoor defaults for only *some* of these properties.  Because
+	// DoorPair defaults for only *some* of these properties.  Because
 	// if it replaces all of them, then you have a complete set
 	// of declarations on the "custom" instance, and then another
-	// complete set on the EasyDoor instance.  Which would be the
+	// complete set on the DoorPair instance.  Which would be the
 	// same amount of effort as putting everything on the second,
-	// "non-custom" instance instead of the EasyDoor.  But eh.
+	// "non-custom" instance instead of the DoorPair.  But eh.
 	_tweakVocabSafe(d) {
 		if((d.name == '') && (name != ''))
 			d.name = name;
@@ -218,7 +218,7 @@ modify ThroughPassage
 ;
 
 // Tweak configureDoor() on LockableWithKey to add any keylist on the
-// EasyDoor.
+// DoorPair.
 modify LockableWithKey
 	configureDoor(obj) {
 		if(obj.keyList)

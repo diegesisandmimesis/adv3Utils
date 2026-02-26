@@ -39,13 +39,13 @@
 		&& (obj.ofKind(obj.location.resourceClass)))
 
 
-#define isEasyDoor(obj) isType(obj, EasyDoor)
+#define isDoorPair(obj) isType(obj, DoorPair)
 #define isAutoUnlock(obj) isType(obj, AutoUnlock)
 
 OrdinalThing template 'vocabWords' 'name' +ordinalNumber 'ordinalVocab'? @location? "desc"?;
 OrdinalThing template 'vocabWords' 'name' +ordinalNumber [ordinalVocab]? @location? "desc"?;
 
-EasyDoor template ->mainDoor? 'vocabWords'? 'name'? "desc"?;
+DoorPair template ->mainDoor? 'vocabWords'? 'name'? "desc"?;
 
 // Alternate Room template that allows declaration of vocabulary.
 Room template 'roomName' 'destName'? 'name'? 'vocabWords'? "desc"?;

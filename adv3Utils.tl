@@ -4,7 +4,7 @@ source: src/gTurn/gTurn.t
 source:	src/findMaxValue/findMaxValue.t
 source: src/room/room.t
 source: src/room/roomVocab.t
-source: src/door/easyDoor.t
+source: src/door/doorPair.t
 source: src/door/deadboltMsg.t
 source: src/door/oneWayDoorAction.t
 source: src/door/deadbolt.t

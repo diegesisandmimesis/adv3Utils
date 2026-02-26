@@ -1,6 +1,6 @@
 #charset "us-ascii"
 //
-// deadboltTest2.t
+// doorPairTest.t
 // Version 1.0
 // Copyright 2022 Diegesis & Mimesis
 //
@@ -8,7 +8,7 @@
 //
 // It can be compiled via the included makefile with
 //
-//	# t3make -f deadboltTest2.t3m
+//	# t3make -f doorPairTest.t3m
 //
 // ...or the equivalent, depending on what TADS development environment
 // you're using.
@@ -28,17 +28,12 @@ gameMain: GameMainDef
 
 key0: Key '(brass) key' 'key' "A brass key. ";
 
-demoDoor: DoorPair ->northRoom '(deadbolt) (wooden) door' 'door'
-	"A wooden door with a deadbolt. The deadbolt is on
-		<<((masterObject == self) ? 'this' : 'the other')>>
-		side. "
-	doorClass = DeadboltDoor
-;
+demoDoor0: DoorPair ->northRoom '(wooden) door' 'door' "A wooden door. ";
 
 southRoom: Room 'South Room'
 	"This is the south room. To the north is the door to the north
 		room and to the east is the alternate route. "
-	north = demoDoor
+	north = demoDoor0
 	east = alternateRoom
 ;
 +me: Person;
@@ -53,6 +48,6 @@ alternateRoom: Room 'Alternate Route'
 northRoom: Room 'North Room'
 	"This is a the north room.  The south room is south and the alternate
 	route is to the southeast. "
-	south = demoDoor
+	south = demoDoor0
 	southeast = alternateRoom
 ;
