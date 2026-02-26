@@ -16,9 +16,11 @@
 // Tweak to change the default implicit action report for doors that
 // auto-unlock from one side.
 modify OpenAction
+	/*
 	getImplicitPhrase(ctx) {
 		if(dobjCur_.verbPhraseDobjOpen != nil)
 			verbPhrase = dobjCur_.verbPhraseDobjOpen;
 		return(inherited(ctx));
 	}
+	*/
 ;
