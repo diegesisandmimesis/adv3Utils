@@ -128,36 +128,6 @@ class Ordinal: object
 		disambigPromptOrder = ordinalNumber;
 	}
 
-	/*
-	// Add string str to the command dictionary as part of speech prop.
-	// The value add in the method is that it checks to see if the
-	// word is already defined for this object before trying to add it.
-	_addWord(str, prop) {
-		if(cmdDict.findWord(str, prop).subset({ x: x == self }).length
-			> 0)
-			return;
-		cmdDict.addWord(self, str, prop);
-	}
-
-	// Add the given weak token.
-	_addWeakToken(str) {
-		// If this string is already in the weak tokens list, bail.
-		if((weakTokens != nil) && (weakTokens.indexOf(str) != nil))
-			return;
-
-		// Init the weak tokens list if it doesn't exist.
-		if(weakTokens == nil) weakTokens = [];
-
-		// Add our token to the list.
-		weakTokens += str;
-	}
-
-	_addWeakWord(str, prop) {
-		_addWord(str, prop);
-		_addWeakToken(str);
-	}
-	*/
-
 	// Add the given string as a noun and an adjective for this object
 	// in the command dictionary.  This is needed for constructions
 	// like "pebble number three" to match.
