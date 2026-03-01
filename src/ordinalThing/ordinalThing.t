@@ -128,6 +128,7 @@ class Ordinal: object
 		disambigPromptOrder = ordinalNumber;
 	}
 
+	/*
 	// Add string str to the command dictionary as part of speech prop.
 	// The value add in the method is that it checks to see if the
 	// word is already defined for this object before trying to add it.
@@ -155,13 +156,14 @@ class Ordinal: object
 		_addWord(str, prop);
 		_addWeakToken(str);
 	}
+	*/
 
 	// Add the given string as a noun and an adjective for this object
 	// in the command dictionary.  This is needed for constructions
 	// like "pebble number three" to match.
 	_addOrdinalNoun(str) {
-		_addWord(str, &noun);
-		_addWord(str, &adjective);
+		addWord(str, &noun);
+		addWord(str, &adjective);
 	}
 
 	// Set up the ordinal vocabulary for a given number and noun.
@@ -170,12 +172,12 @@ class Ordinal: object
 		// Go through all the ordinal forms we have defined...
 		_ordinalForms.forEach(function(x) {
 			// ...add each as a weak token.
-			_addWeakToken((x[1])(n));
+			addWeakToken((x[1])(n));
 			// ...and an adjective.
-			_addWord((x[1])(n), &adjective);
+			addWord((x[1])(n), &adjective);
 			// ...and add SOME of them as nouns as well.
 			if(x[2] == true)
-				_addWord((x[1])(n), &noun);
+				addWord((x[1])(n), &noun);
 		});
 	}
 ;

@@ -1,6 +1,7 @@
 name: adv3Utils Library
 source: adv3Utils.t
 source: src/gTurn/gTurn.t
+source: src/vocab/addWord.t
 source:	src/findMaxValue/findMaxValue.t
 source: src/room/room.t
 source: src/room/roomVocab.t
