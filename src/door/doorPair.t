@@ -68,11 +68,11 @@
 //		myDoor: DoorPair ->northRoom
 //			doorClass = WoodenDoor
 //		;
-//		+MetalDoor = "This is a slightly different metal door. ";
+//		+MetalDoor desc = "This is a slightly different metal door. ";
 //
 //		// Both doors are statically declared.
 //		myDoor: DoorPair ->northRoom;
-//		+MetalDoor = "This is a slightly different metal door. ";
+//		+MetalDoor desc = "This is a slightly different metal door. ";
 //		+WoodenDoor;
 //
 //

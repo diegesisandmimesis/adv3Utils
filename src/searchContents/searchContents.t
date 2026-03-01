@@ -26,4 +26,13 @@ modify Thing
 		addAllContents(l);
 		return(l.subset(fn));
 	}
+
+	// Return the first matching item in the contents, or nil if there
+	// are none.
+	matchContents(fn) {
+		local r;
+
+		r = searchContents(fn);
+		return((r.length < 1) ? nil : r[1]);
+	}
 ;
