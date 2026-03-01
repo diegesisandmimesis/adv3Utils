@@ -2,6 +2,8 @@
 //
 // deadboltMst.t
 //
+//	Library messages for the Deadbolt class.
+//
 //
 #include <adv3.h>
 #include <en_us.h>

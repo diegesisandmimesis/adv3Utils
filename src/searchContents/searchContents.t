@@ -11,6 +11,10 @@
 //		searchContents(fn)	returns the subset of the contents
 //					that satisfy the argument test function
 //
+//		matchContents(fn)	returns the first object in the
+//					contents that satisfies the test
+//					function
+//
 #include <adv3.h>
 #include <en_us.h>
 

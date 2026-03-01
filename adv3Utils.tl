@@ -18,5 +18,7 @@ source: src/interruptImplicit/interruptImplicit.t
 source: src/messageTokens/messageTokens.t
 source: src/actionType/actionType.t
 source: src/searchContents/searchContents.t
+source: src/resource/resourceMsg.t
 source: src/resource/resource.t
+source: src/resource/resourceFactory.t
 source: src/debug/debug.t

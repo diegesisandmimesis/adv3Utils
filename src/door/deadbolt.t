@@ -2,6 +2,8 @@
 //
 // deadbolt.t
 //
+//	Class of lockable objects only unlockable from one side.
+//
 //	IMPORTANT: need to tweak the procgen one-way door classes to
 //	use these after they're done:
 //		procgen/src/misc/pgOneWayDoor.t

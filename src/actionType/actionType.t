@@ -2,6 +2,15 @@
 //
 // actionType.t
 //
+//	Adds an actionType property to Action.  Intended to make it
+//	easier to group actions for allowing/blocking/modifying.
+//
+//	Current tags are:
+//
+//		sense_t		sensing actions, like looking
+//
+//		travel_t	travel actions
+//
 //
 #include <adv3.h>
 #include <en_us.h>

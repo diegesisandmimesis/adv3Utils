@@ -2,6 +2,11 @@
 //
 // debug.t
 //
+//	Provides a _debugObject() method that enumerates the properties
+//	on a given object.  Enabled only when t3make is called with
+//	the debugging flag.
+//
+//
 #include <adv3.h>
 #include <en_us.h>
 
