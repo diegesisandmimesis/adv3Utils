@@ -63,4 +63,8 @@ MessageToken template 'id' ->prop @obj;
 #define SetActionType(name, t) \
 	modify name##Action actionType = t;
 
+#define ANNOUNCE_MULTI (1 << 0)
+#define ANNOUNCE_AMBIG (1 << 1)
+#define ANNOUNCE_DEFAULT (1 << 2)
+
 #define ADV3_UTILS_H

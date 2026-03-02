@@ -22,4 +22,5 @@ source: src/searchContents/searchContents.t
 source: src/resource/resourceMsg.t
 source: src/resource/resource.t
 source: src/resource/resourceFactory.t
+source: src/objectAnnouncement/objectAnnouncement.t
 source: src/debug/debug.t
