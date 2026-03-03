@@ -32,7 +32,7 @@ gameMain: GameMainDef
 		<.p>
 		To test multi: <<cmd('take all')>>
 		<.p>
-		To test ambig: <<cmd('take any pebble')>>
+		To test ambig: <<cmd('take any rock')>>
 		<.p>
 		To test default: <<cmd('drop')>>
 		<.p>
