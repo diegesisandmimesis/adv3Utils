@@ -42,6 +42,9 @@
 #define isDoorPair(obj) isType(obj, DoorPair)
 #define isAutoUnlock(obj) isType(obj, AutoUnlock)
 
+#define isSenseAction(obj) (isType(obj, Action) && (obj.actionType == sense_t))
+#define isTravelAction(obj) (isType(obj, Action) && (obj.actionType == travel_t))
+
 OrdinalThing template 'vocabWords' 'name' +ordinalNumber 'ordinalVocab'? @location? "desc"?;
 OrdinalThing template 'vocabWords' 'name' +ordinalNumber [ordinalVocab]? @location? "desc"?;
 
